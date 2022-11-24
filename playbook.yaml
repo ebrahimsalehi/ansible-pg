@@ -17,7 +17,7 @@
         enabled: true
     - name: 'Make sure the customized chrony config file is propagated to the managed hosts.'
       copy:
-        src: 'resources/chrony.conf'
+        src: 'chrony.conf'
         dest: '/etc/chrony.conf'
       notify: 'restart_chrony'
 
