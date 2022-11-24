@@ -3,9 +3,9 @@
   become: true
 
   tasks:
-    - name: Set timezone to UTC
+    - name: Change timezone
       community.general.timezone:
-        name: JST
+        name: US/Pacific
     - name: 'Make sure chrony is installed'
       ansible.builtin.package:
         name: 'chrony'
