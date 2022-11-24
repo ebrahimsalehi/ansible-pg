@@ -1,0 +1,28 @@
+- name: 'Manage my hosts'
+  hosts: managed_by_jenkins
+  become: true
+
+  tasks:
+    - name: Set timezone to UTC
+      community.general.timezone:
+        name: UTC
+    - name: 'Make sure chrony is installed'
+      ansible.builtin.package:
+        name: 'chrony'
+        state: 'present'
+    - name: 'Make sure chrony is enabled and running'
+      service:
+        name: '{{ chrony_svc }}'
+        state: 'started'
+        enabled: true
+    - name: 'Make sure the customized chrony config file is propagated to the managed hosts.'
+      copy:
+        src: 'resources/chrony.conf'
+        dest: '/etc/chrony.conf'
+      notify: 'restart_chrony'
+
+  handlers:
+    - name: 'restart_chrony'
+      service:
+        name: "{{ chrony_svc }}"
+        state: "restarted"
