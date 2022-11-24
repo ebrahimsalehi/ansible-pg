@@ -5,7 +5,7 @@
   tasks:
     - name: Set timezone to UTC
       community.general.timezone:
-        name: UTC
+        name: JST
     - name: 'Make sure chrony is installed'
       ansible.builtin.package:
         name: 'chrony'
